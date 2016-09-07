@@ -16,7 +16,7 @@ def get_location(user_location):
         return None
     else:
         try:
-            location = geolocator.geocode(user_location)
+            location = geolocator.geocode(user_location, timeout=10)
             return location
         except GeocoderTimedOut as e:
             return None
