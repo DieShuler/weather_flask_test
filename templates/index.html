@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <!-- Include the bootstrap styling, but leave out the Javascript. -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script> -->
+    </head>
+    <body>
+        <div class="jumbotron">
+            <div class="container">
+                {% if location %}
+                    <h1>The Weather!</h1>
+                    <h3> {{ forecast }} </h3>
+                    <a href="{{ url_for('index') }}">Look up another address</a>
+                {% else %}
+                    <h1>Where would you like to see the weather?</h1>
+                    <form action="/" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" name="location" class="form-contorl" placeholder="Enter somewhere here">
+                        </div>
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <a style="text-align: center;"  href=" {{url_for('about')}} ">Check out the about page.</a>
+    </body>
+</html>
