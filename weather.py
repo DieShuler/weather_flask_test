@@ -4,8 +4,6 @@
 import forecastio
 from geopy.geocoders import Nominatim
 import os
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
 
 # Opted to set the API key here since it was easier than trying
 # to push it over from live_slackbot.py
@@ -17,14 +15,17 @@ def get_location(user_location):
     if user_location == "":
         return None
     else:
-        location = geolocator.geocode(user_location)
-        return location
+        try:
+            location = geolocator.geocode(user_location)
+            return location
+        except GeocoderTimedOut as e:
+            return None
 
 def get_weather(req_location):
     location = get_location(req_location)
     if location == None:
-        # Making sure to return something in case the user doesn't supply a location
-        weather_return = "I have no idea where that is."
+        # Making sure to return something in case the Geocoder times out
+        weather_return = "The super secret squirrel locator is sleeping right now.  Check back in a bit."
     else:
         forecast = forecastio.load_forecast(api_key, location.latitude, location.longitude).currently()
         weather_return = "The weather in {} is: {} and {} degrees".format(location,
